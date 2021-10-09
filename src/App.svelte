@@ -36,14 +36,16 @@
   	{/each}
   </ul>
 
-  {#each options.filter(option => option.isSelected) as { name } (name)}
-  	<h1
-	  in:receive="{{key: name}}"
-	  out:send="{{key: name}}"
-	>
-      {name || ""}
-    </h1>
-  {/each}
+  <div class="selected-item-slot">
+    {#each options.filter(option => option.isSelected) as { name } (name)}
+      <h1
+        in:receive="{{key: name}}"
+        out:send="{{key: name}}"
+      >
+        {name || ""}
+      </h1>
+    {/each}
+  </div>
 </main>
 
 <style>
@@ -54,6 +56,12 @@
     margin: 0 auto;
   }
 
+  .selected-item-slot {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+
   h1 {
     color: #ff3e00;
     font-size: 4em;
@@ -61,6 +69,9 @@
     display: inline-block;
     margin: 0;
     padding: 0;
+
+    grid-row-start: 1;
+    grid-column-start: 1;
   }
 
   ul {

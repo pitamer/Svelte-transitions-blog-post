@@ -132,14 +132,43 @@ Changes to the main element
 
 // gif
 
+```sveltehtml
+* {
+  outline: 1px red dashed;
+}
+```
+
 // gif with outlines
 
 Which at last brings us to the important part of this post...
 
 ## Step 3: Fixing the Problem
 
+Wrap our h1 tag with a div
 
+```sveltehtml
+<div class="selected-item-slot">
+  {#each options.filter(option => option.isSelected) as { name } (name)}
+    <!-- h1 code -->
+  {/each}
+</div>
+```
 
+(It's just wrapping with a div)
 
+then:
 
-// [!] (plugin svelte) ValidationError: An element that uses the animate directive must be the immediate child of a keyed each block
+```sveltehtml
+.selected-item-slot {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+}
+```
+
+Lastly, add to h1:
+
+```sveltehtml
+grid-row-start: 1;
+grid-column-start: 1;
+```
