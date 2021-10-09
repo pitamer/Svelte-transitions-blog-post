@@ -59,7 +59,6 @@
 
   .selected-item-slot {
     display: grid;
-    grid-template-columns: 1fr;
     place-items: center;
   }
 
@@ -71,8 +70,8 @@
     margin: 0;
     padding: 0;
 
-    grid-row-start: 1;
-    grid-column-start: 1;
+    grid-row: 1;
+    grid-column: 1;
   }
 
   ul {
