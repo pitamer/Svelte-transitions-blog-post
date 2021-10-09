@@ -1,11 +1,19 @@
 <script>
+  import { flip } from 'svelte/animate';
+  import { crossfade } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
+
+  const DEFAULT_DURATION = 500;
+
+  const [send, receive] = crossfade({duration: DEFAULT_DURATION, easing: cubicOut});
+
   export let options = [
     {name: "option 1", isSelected: false},
     {name: "option 2", isSelected: false},
     {name: "option 3", isSelected: false},
     {name: "option 4", isSelected: false},
     {name: "option 5", isSelected: false},
-  ]
+  ];
 
   const select = (name) => {
     options = options.map(option => ({...option, isSelected: option.name === name}));
@@ -16,15 +24,23 @@
 
 <main>
   <ul>
-    {#each availableOptions as { name } (name)}
-      <li on:click={() => select(name)}>
-        {name}
-      </li>
-    {/each}
+  	{#each availableOptions as { name } (name)}
+  	  <li
+	    on:click={() => select(name)}
+		in:receive="{{key: name}}"
+		out:send="{{key: name}}"
+		animate:flip="{{duration: DEFAULT_DURATION}}"
+	  >
+	    {name}
+  	  </li>
+  	{/each}
   </ul>
 
   {#each options.filter(option => option.isSelected) as { name } (name)}
-    <h1>
+  	<h1
+	  in:receive="{{key: name}}"
+	  out:send="{{key: name}}"
+	>
       {name || ""}
     </h1>
   {/each}

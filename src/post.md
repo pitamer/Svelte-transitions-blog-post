@@ -12,13 +12,13 @@ Transitioning multiple Svelte elements on the same spot
     {name: "option 3", isSelected: false},
     {name: "option 4", isSelected: false},
     {name: "option 5", isSelected: false},
-  ]
+  ];
 
   const select = (name) => {
     options = options.map(option => ({...option, isSelected: option.name === name}));
   }
 
-  $: availableOptions = options.filter(option => !option.isSelected)
+  $: availableOptions = options.filter(option => !option.isSelected);
 </script>
 
 <main>
@@ -94,6 +94,14 @@ import { crossfade } from 'svelte/transition';
 import { cubicOut } from 'svelte/easing';
 ```
 
+Also:
+
+```sveltehtml
+const DEFAULT_DURATION = 500;
+
+const [send, receive] = crossfade({duration: DEFAULT_DURATION, easing: cubicOut});
+```
+
 Changes to the main element
 
 ```sveltehtml
@@ -121,6 +129,12 @@ Changes to the main element
   {/each}
 </main>
 ```
+
+// gif
+
+// gif with outlines
+
+Which at last brings us to the important part of this post...
 
 ## Step 3: Fixing the Problem
 
