@@ -17,9 +17,10 @@
 
   const select = (name) => {
     options = options.map(option => ({...option, isSelected: option.name === name}));
-  }
+  };
 
-  $: availableOptions = options.filter(option => !option.isSelected)
+  $: availableOptions = options.filter(option => !option.isSelected);
+  $: selectedOption = options.filter(option => option.isSelected);
 </script>
 
 <main>
@@ -37,7 +38,7 @@
   </ul>
 
   <div class="selected-item-slot">
-    {#each options.filter(option => option.isSelected) as { name } (name)}
+    {#each selectedOption as { name } (name)}
       <h1
         in:receive="{{key: name}}"
         out:send="{{key: name}}"
