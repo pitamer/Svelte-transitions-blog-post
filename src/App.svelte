@@ -19,6 +19,10 @@
     options = options.map(option => ({...option, isSelected: option.name === name}));
   };
 
+  const clear = () => {
+    options = options.map(option => ({...option, isSelected: false}));
+  };
+
   $: availableOptions = options.filter(option => !option.isSelected);
   $: selectedOption = options.filter(option => option.isSelected);
 </script>
@@ -40,6 +44,7 @@
   <div class="selected-item-slot">
     {#each selectedOption as { name } (name)}
       <h1
+        on:click="{clear}"
         in:receive="{{key: name}}"
         out:send="{{key: name}}"
       >
@@ -67,6 +72,7 @@
     font-size: 4em;
     font-weight: 100;
     display: inline-block;
+    cursor: pointer;
     margin: 0;
     padding: 0;
 
